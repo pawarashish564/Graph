@@ -3,9 +3,9 @@ public class Graph
 {
   //addVertex() -> create new graph addVertex
   //addEdge() -> create new edge between two nodes
-  int nodes;
-  int edges;
-  HashMap<Integer,ArrayList<Integer>> adjlist;
+  public int nodes;
+  public int edges;
+  public HashMap<Integer,ArrayList<Integer>> adjlist;
   public Graph()
   {
     //nodes=0,edges=0;
