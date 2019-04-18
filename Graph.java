@@ -40,7 +40,7 @@ public class Graph
       System.out.println(key+"-->"+adjlist.get(key));
     }
   }
-  public void dfs_recursive(int s)
+  public void dfsRecursive(int s)
   { //dfs recursive method
     // not fixed
     boolean visited[]=new boolean[nodes];
@@ -51,7 +51,10 @@ public class Graph
         if(!visited[a]) dfs_recursive(a);
       }
   }
+	public void bfsTraversal()
+	{
 
+	}
   public static void main(String[] args) {
     Graph g = new Graph();
     g.addVertex(0);
