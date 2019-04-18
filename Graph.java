@@ -55,6 +55,11 @@ public class Graph
 	{
 
 	}
+	public void shortedPath(int node1,int node2)
+	{
+
+	}
+
   public static void main(String[] args) {
     Graph g = new Graph();
     g.addVertex(0);
