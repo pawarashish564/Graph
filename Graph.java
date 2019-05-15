@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Stack;
 public class Graph
 {
   //addVertex() -> create new graph addVertex
@@ -18,7 +20,10 @@ public class Graph
     nodes++;
 
   }
-
+  public ArrayList getList(int v)
+  {
+    return adjlist.get(v);
+  }
   public void addEdge(int s,int d)
   {
     //undirected graph
@@ -40,21 +45,38 @@ public class Graph
       System.out.println(key+"-->"+adjlist.get(key));
     }
   }
-  public void dfsRecursive(int s)
-  { //dfs recursive method
-    // not fixed
-    boolean visited[]=new boolean[nodes];
-    visited[s]=true;
-    System.out.print(s+" ");
-    for(int a:adjlist.get(s))
+  
+  
+
+   boolean visited[] = new boolean[10];
+   
+  public void traverseDFS(int v)
+  { 
+   // Stack<Integer> st = new Stack<>();
+    ArrayList<Integer> temp = getList(v);
+    System.out.print(v+" ");
+    visited[v] = true;
+    for (int var : temp) 
+    {
+      if(visited[var] != true )
       {
-        if(!visited[a]) dfs_recursive(a);
-      }
+        traverseDFS(var);
+      }  
+    }  
+  
+  
   }
+      
+    
+    
+  
+  
+
 	public void bfsTraversal()
 	{
 
-	}
+  }
+  
 	public void shortedPath(int node1,int node2)
 	{
 
@@ -62,7 +84,7 @@ public class Graph
 
   public static void main(String[] args) {
     Graph g = new Graph();
-    g.addVertex(0);
+    //g.addVertex(0);
     g.addVertex(1);
     g.addVertex(2);
     g.addVertex(3);
@@ -70,22 +92,30 @@ public class Graph
     g.addVertex(5);
     g.addVertex(6);
 
-    System.out.println(g.adjlist);
+    //System.out.println(g.adjlist);
 
-    g.addEdge(3,1);
-    g.addEdge(3,4);
-    g.addEdge(4,2);
-    g.addEdge(4,5);
+   // /g.addEdge(3,1);
+   // g.addEdge(3,4);
+   // g.addEdge(4,2);
+    //g.addEdge(4,5);
     g.addEdge(1,2);
-    g.addEdge(1,0);
-    g.addEdge(0,2);
-    g.addEdge(6,5);
+    g.addEdge(1, 3);
+    g.addEdge(2,4);
+    g.addEdge(2,5);
+    g.addEdge(3,5);
+    g.addEdge(4,5);
+    g.addEdge(4,6);
+    g.addEdge(5,6);
 
+    // g.addEdge(1,0);
+   // g.addEdge(0,2);
+   
     System.out.println(g.adjlist);
+   // System.out.println();
+  //  g.showConnections();
     System.out.println();
-    g.showConnections();
-    System.out.println();
-//    g.dfs_recursive(0);
+    g.traverseDFS(1);
+    
   }
 
 }
