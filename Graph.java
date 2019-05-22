@@ -1,18 +1,43 @@
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Stack;
+/**
+ * Graph Data structure in Java 
+ * @version 1.0
+ * @since 2019
+ */
+
+
+
 public class Graph
 {
   //addVertex() -> create new graph addVertex
   //addEdge() -> create new edge between two nodes
+  /**
+   * nodes stores total numbers of nodes in graph
+   */
+  
   public int nodes;
+    /**
+     * edges are total number of edges in graph
+     */
   public int edges;
+
   public HashMap<Integer,ArrayList<Integer>> adjlist;
+  /**
+   * Initialization of Graph
+   */
+  
   public Graph()
   {
     //nodes=0,edges=0;
     adjlist = new HashMap<>();
   }
+  /**
+   *adding vertex to graph
+   * @param val value for node 
+   */
+  
   public void addVertex(int val)
   {
     ArrayList<Integer> temp = new ArrayList<>();
@@ -20,10 +45,22 @@ public class Graph
     nodes++;
 
   }
+
+  /**
+   * Get list of all connected nodes of current node v
+   * @param v as input node
+   * @return list which has all connected node
+   */
   public ArrayList getList(int v)
   {
     return adjlist.get(v);
   }
+  /**
+   * set edge bitween node s(Source) and d(Destination)
+   * @param s source node
+   * @param d destination node
+   */
+
   public void addEdge(int s,int d)
   {
     //undirected graph
@@ -38,6 +75,12 @@ public class Graph
     adjlist.put(d,temp);
     edges++;
   }
+  /**
+   * returns entire adjecency list of graph
+   * 
+   */
+
+
   public void showConnections()
   {
     for(Integer key : adjlist.keySet())
@@ -48,8 +91,11 @@ public class Graph
   
   
 
-   boolean visited[] = new boolean[10];
-   
+  boolean visited[] = new boolean[10];
+  /**
+   * Traverse graph in DFS in recursive fashion
+   * @param v as source vertex
+   */ 
   public void traverseDFS(int v)
   { 
    // Stack<Integer> st = new Stack<>();
@@ -70,13 +116,20 @@ public class Graph
     
     
   
-  
-
-	public void bfsTraversal()
+  /**
+   * Traverse Entire graph in BFS 
+   * @param v as source vertex
+   */
+	public void bfsTraversal(int v)
 	{
 
   }
-  
+  /**
+   * Return shortest path between node1 and node2
+   * using Dijktra algorithm with complexity O(n^2)
+   * @param node1 starting node
+   * @param node2 ending node
+   */
 	public void shortedPath(int node1,int node2)
 	{
 
