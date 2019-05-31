@@ -1,6 +1,6 @@
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Stack;
+import java.util.LinkedList;
 /**
  * Graph Data structure in Java 
  * @version 1.0
@@ -17,41 +17,34 @@ public class Graph
    * nodes stores total numbers of nodes in graph
    */
   
-  public int nodes;
+  public static int nodes;
     /**
      * edges are total number of edges in graph
      */
-  public int edges;
+  public static int edges;
 
   public HashMap<Integer,ArrayList<Integer>> adjlist;
   /**
    * Initialization of Graph
+   * @param n no of nodes in graph
    */
-  
-  public Graph()
+  public Graph(int n)
   {
-    //nodes=0,edges=0;
     adjlist = new HashMap<>();
+    for(int i=0;i<n;i++)
+    {
+      ArrayList<Integer> temp = new ArrayList<>();
+      adjlist.put(i,temp);
+      nodes++;
+    }
   }
-  /**
-   *adding vertex to graph
-   * @param val value for node 
-   */
   
-  public void addVertex(int val)
-  {
-    ArrayList<Integer> temp = new ArrayList<>();
-    adjlist.put(val,temp);
-    nodes++;
-
-  }
-
   /**
    * Get list of all connected nodes of current node v
    * @param v as input node
    * @return list which has all connected node
    */
-  public ArrayList getList(int v)
+  public ArrayList<Integer> getList(int v)
   {
     return adjlist.get(v);
   }
@@ -61,7 +54,7 @@ public class Graph
    * @param d destination node
    */
 
-  public void addEdge(int s,int d)
+  public  void addEdge(int s,int d)
   {
     //undirected graph
     //getting the arraylist
@@ -75,12 +68,27 @@ public class Graph
     adjlist.put(d,temp);
     edges++;
   }
+
+  /**
+   * return true if there exits an edge between node s(Source) and d(Destination)
+   * @param s source node
+   * @param d destination node
+   * @return return boolean value if there exist an edge between s and d
+   */
+  public boolean checkEdge(int s,int d)
+  {
+    return adjlist.get(s).contains(d);
+  }
+
+  public boolean checkVertex(int x)
+  {
+    return adjlist.containsKey(x);
+  }
+
   /**
    * returns entire adjecency list of graph
    * 
    */
-
-
   public void showConnections()
   {
     for(Integer key : adjlist.keySet())
@@ -98,13 +106,15 @@ public class Graph
    */ 
   public void traverseDFS(int v)
   { 
-   // Stack<Integer> st = new Stack<>();
-    ArrayList<Integer> temp = getList(v);
-    System.out.print(v+" ");
-    visited[v] = true;
+   if(!checkVertex(v)) return;
+
+   visited[v] = true;
+   System.out.print(v+" ");
+
+   ArrayList<Integer> temp = getList(v);
     for (int var : temp) 
     {
-      if(visited[var] != true )
+      if(!visited[var])
       {
         traverseDFS(var);
       }  
@@ -120,8 +130,30 @@ public class Graph
    * Traverse Entire graph in BFS 
    * @param v as source vertex
    */
-	public void bfsTraversal(int v)
+	public void traverseBFS(int v)
 	{
+    System.out.print("\nBFS >> \n");
+    boolean visited[] = new boolean[nodes];
+    LinkedList<Integer> q = new LinkedList<>();
+    q.add(v);
+    visited[v]= true;
+
+    while(!q.isEmpty())
+    {
+      int s = q.poll();
+      System.out.print(s+" ");
+    
+      ArrayList<Integer> temp = getList(s);
+      for (int var : temp)
+      {
+        if(!visited[var]) 
+          {
+            visited[var]=true;
+            q.add(var);
+
+          }  
+      }
+    }
 
   }
   /**
@@ -136,39 +168,25 @@ public class Graph
 	}
 
   public static void main(String[] args) {
-    Graph g = new Graph();
-    //g.addVertex(0);
-    g.addVertex(1);
-    g.addVertex(2);
-    g.addVertex(3);
-    g.addVertex(4);
-    g.addVertex(5);
-    g.addVertex(6);
-
-    //System.out.println(g.adjlist);
-
-   // /g.addEdge(3,1);
-   // g.addEdge(3,4);
-   // g.addEdge(4,2);
-    //g.addEdge(4,5);
-    g.addEdge(1,2);
-    g.addEdge(1, 3);
-    g.addEdge(2,4);
-    g.addEdge(2,5);
-    g.addEdge(3,5);
-    g.addEdge(4,5);
-    g.addEdge(4,6);
-    g.addEdge(5,6);
-
-    // g.addEdge(1,0);
-   // g.addEdge(0,2);
+    Graph g = new Graph(5);
+    
+    g.addEdge( 0, 1); 
+    g.addEdge( 0, 4); 
+    g.addEdge( 1, 2); 
+    g.addEdge( 1, 3); 
+    g.addEdge( 1, 4); 
+    g.addEdge( 2, 3); 
+    g.addEdge( 3, 4); 
    
     System.out.println(g.adjlist);
-   // System.out.println();
-  //  g.showConnections();
-    System.out.println();
-    g.traverseDFS(1);
-    
+    System.out.println("No of Nodes "+ nodes);
+    System.out.println("No of Edges "+ edges);
+    System.out.println("Edge(2,3) "+g.checkEdge(2, 3));
+  
+    System.out.println("DFS >>");
+    g.traverseDFS(0);
+    g.traverseBFS(0);
+
   }
 
 }
