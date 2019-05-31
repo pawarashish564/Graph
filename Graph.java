@@ -3,16 +3,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 /**
  * Graph Data structure in Java 
+ * 
  * @version 1.0
  * @since 2019
  */
-
-
-
 public class Graph
 {
-  //addVertex() -> create new graph addVertex
-  //addEdge() -> create new edge between two nodes
   /**
    * nodes stores total numbers of nodes in graph
    */
@@ -50,13 +46,13 @@ public class Graph
   }
   /**
    * set edge bitween node s(Source) and d(Destination)
+   * for undirected graph
    * @param s source node
    * @param d destination node
    */
 
   public  void addEdge(int s,int d)
   {
-    //undirected graph
     //getting the arraylist
     ArrayList<Integer> temp = adjlist.get(s);
     temp.add(d); //add the dest node
@@ -80,6 +76,12 @@ public class Graph
     return adjlist.get(s).contains(d);
   }
 
+  /**
+   * Check node x is in graph or not 
+   * @param x node in graph 
+   * @return returns true if there exist node x in Graph
+   *  
+   * */  
   public boolean checkVertex(int x)
   {
     return adjlist.containsKey(x);
